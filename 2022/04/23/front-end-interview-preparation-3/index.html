@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Cany Zhou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自MDN，如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试基础知识总结（三）：JavaScript">
+<meta property="og:url" content="http://example.com/2022/04/23/front-end-interview-preparation-3/index.html">
+<meta property="og:site_name" content="CanyZhou&#39;s Blog">
+<meta property="og:description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自MDN，如">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/js-banner.png">
+<meta property="article:published_time" content="2022-04-23T11:40:11.000Z">
+<meta property="article:modified_time" content="2022-04-23T13:32:37.287Z">
+<meta property="article:author" content="Cany Zhou">
+<meta property="article:tag" content="front-end">
+<meta property="article:tag" content="interview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/js-banner.png">
+  
+  
+  <title>前端面试基础知识总结（三）：JavaScript - CanyZhou&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Cany Zhou</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="前端面试基础知识总结（三）：JavaScript">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-23 19:40" pubdate>
+        April 23, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端面试基础知识总结（三）：JavaScript</h1>
+            
+            <div class="markdown-body">
+              <p>JavaScript ( JS ) 是一种具有<code>头等函数</code>的轻量级，<code>解释型</code>或<code>即时编译型</code>的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种<code>基于原型编程</code>、<code>多范式</code>的<code>动态脚本语言</code>，并且支持面向对象、命令式和声明式（如函数式编程）风格。</p>
+<p>开头来自<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN</a>，如果有疑问可以参考下面的关键词解释：</p>
+<ol>
+<li>头等函数（First-class Function）：当一门编程语言的函数可以被当作变量一样用时，则称这门语言拥有头等函数。例如，在JavaScript中，函数可以被当作参数传递给其他函数，可以作为另一个函数的返回值，还可以被赋值给一个变量。</li>
+<li>解释型（interpreted）编程语言：会将代码一句一句直接运行，不需要像编译语言（如C++）一样，经过编译器先行编译为机器代码，之后再运行。需要要利用解释器在运行期，动态将代码逐句解释为机器代码，或是已经预先编译为机器代码的子程序，之后再运行。</li>
+<li>即时编译型（just-in-time compiled）：即时编译器（JIT compiler）可以理解为解释器（Interpreter）中的一个组件，对编译器进行效率优化，运行已经预先编译为机器代码的子程序。</li>
+<li>基于原型编程（prototype-based）：原型编程是一种面向对象编程的风格。通过向其它类的实例（对象）中添加属性和方法来创建类，甚至偶尔使用空对象创建类。</li>
+<li>多范式（multi-paradigm）：多种编程范式，常见的有命令式编程(Imperative programming)、函数式编程(Functional programming)、面向对象编程(Object-oriented programming)等。</li>
+<li>动态脚本语言（dynamic language）：动态语言是指在运行时才确定数据类型的语言，变量使用之前不需要类型声明。脚本语言是一种解释性的语言，脚本通常以文本来保存，只要在被调用时进行解释和编译。</li>
+</ol>
+<p><strong>总结一下JavaScript的特点</strong>：</p>
+<ul>
+<li>解释型语言，动态脚本语言</li>
+<li>弱类型（不需要类型声明）</li>
+<li>单线程（异步事件通过事件循环机制处理）</li>
+<li>跨平台（浏览器、服务器端）</li>
+</ul>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="/img/front-end-interview-preparation/js-outline.png" srcset="/img/loading.gif" lazyload alt="JavaScript知识点大纲"></p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>在 JavaScript 规范中，共定义了七种数据类型：</p>
+<ul>
+<li>基本数据类型：Number、String、Boolean、Undefined、Null、Symbol</li>
+<li>复杂数据类型：Object</li>
+</ul>
+<h4 id="1-String类型"><a href="#1-String类型" class="headerlink" title="1.String类型"></a>1.String类型</h4><p>String 类型用于表示由 n 个16位 <code>Unicode</code> 字符组成的字符序列，即字符串。</p>
+<blockquote>
+<p>Unicode 符号集采用 2 个字节（即16位bit）表示一个字符，即最多可以表示 65535 个字符，这样基本上可以覆盖世界上常用的文字。实现了把所有的语言都统一到一套编码中。</p>
+</blockquote>
+<p>1.扩展：UTF-8和GBK的关系？</p>
+<blockquote>
+<p>1.UTF-8是Unicode的实现之一，定义Unicode符号集如何存储。英文使用一个字节，中文使用三个字节来存储。<br>2.GBK英文和中文都使用两个字节来存储。</p>
+</blockquote>
+<p>2.常用操作方法</p>
+<ul>
+<li>字符操作：charAt，charCodeAt，fromCharCode</li>
+<li>字符串提取：substr，substring ，slice</li>
+<li>位置索引：indexOf ，lastIndexOf</li>
+<li>大小写转换：toLowerCase，toUpperCase</li>
+<li>模式匹配：match，search，replace，split</li>
+<li>其他操作：concat，trim，localeCompare</li>
+</ul>
+<p>3.基本包装类型（String、Number、Boolean都是）</p>
+<p>为了方便的对字符串进行操作，ECMAScript 提供了一个基本包装类型：String 对象 。它是一种特殊的引用类型，JS引擎每当读取一个字符串的时候，就会在内部创建一个对应的 String 对象，该对象提供了很多操作字符的方法，这就是为什么能对字符串调用方法的原因。</p>
+<p>在访问字符串时，JS引擎内部会自动完成下列处理：</p>
+<ul>
+<li>创建 String 类型的一个实例</li>
+<li>在实例上调用指定的方法</li>
+<li>销毁这个实例</li>
+</ul>
+<h4 id="2-Number类型"><a href="#2-Number类型" class="headerlink" title="2.Number类型"></a>2.Number类型</h4><p>双精度IEEE754 64位浮点数。JavaScript 能够准确表示的整数范围在 -2^53 到 2^53 之间（不含两个端点），超过这个范围，无法精确表示这个整数。</p>
+<p>1.存储结构</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171013113026887-1981568120.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>2.为什么浮点数运算会有误差？</p>
+<p>十进制转换成二进制在进行运算会丢失精度，计算结果从二进制转换成十进制也会丢失精度。</p>
+<p>3.数值转换</p>
+<p><code>Number(value)</code> 和 <code>+ value</code> 只能对字符串进行整体转换</p>
+<p><code>parseInt(string[, radix])</code>和<code>parseFloat(string)</code> 可以对字符串进行部分转换，即只转换第一个无效字符之前的字符</p>
+<p>4.位运算</p>
+<p>ECMAScript 中的数值以64位双精度浮点数存储，但位运算只能作用于整数，因此要先将 64 位的浮点数转换成 32 位的整数，然后再进行位运算，最后再将计算结果转换成64位浮点数存储。常见的位运算有以下几种：</p>
+<ul>
+<li><code>&amp;</code> 与</li>
+<li><code>|</code> 或</li>
+<li><code>~</code> 非</li>
+<li><code>^</code> 异或</li>
+<li><code>&lt;&lt;</code> 左移</li>
+<li><code>&gt;&gt;</code> 算数右移(有符号右移) 移位的时候高位补的是其符号位，整数则补0，负数则补1</li>
+<li><code>&gt;&gt;&gt;</code> 逻辑右移(无符号右移) 右移的时候高位始终补0</li>
+</ul>
+<p>5.四舍五入</p>
+<ul>
+<li>向上取整：ceil</li>
+<li>向下取整：floor</li>
+<li>四舍五入：round</li>
+<li>固定精度：toFixed</li>
+<li>固定长度：toPrecision</li>
+<li>取整：parseInt、位运算</li>
+</ul>
+<p>6.为什么JS最大值是 2^53 ?</p>
+<blockquote>
+<p>IEEE 754规定，有效数字第一位默认总是1，不保存在64位浮点数之中。也就是说，有效数字总是1.xx…xx的形式，其中xx..xx的部分保存在64位浮点数之中，最长可能为52位</p>
+</blockquote>
+<h4 id="3-Boolean类型"><a href="#3-Boolean类型" class="headerlink" title="3.Boolean类型"></a>3.Boolean类型</h4><p>Boolean 类型只有两个字面值：true 和 false。在 JavaScript 中，所有类型的值都可以转化为与 Boolean 等价的值。</p>
+<p>JavaScript 按照如下规则将变量转换成布尔类型：</p>
+<ul>
+<li>false、0、空字符串（””）、NaN、null 和 undefined 被转换为 false</li>
+<li>所有其他值被转换为 true</li>
+</ul>
+<h4 id="4-Undefined类型"><a href="#4-Undefined类型" class="headerlink" title="4.Undefined类型"></a>4.Undefined类型</h4><p>Undefined 是 Javascript 中特殊的原始数据类型，它只有一个值，即 undefined，字面意思是：未定义的值。它的语义是，希望表示一个变量最原始的状态，而非人为操作的结果。</p>
+<ul>
+<li>声明了一个变量，但没有赋值</li>
+<li>访问对象上不存在的属性</li>
+<li>函数定义了形参，但没有传递实参</li>
+<li>使用 void 对表达式求值：ECMAScript 明确规定 void 操作符 对任何表达式求值都返回 undefined</li>
+</ul>
+<h4 id="5-Null类型"><a href="#5-Null类型" class="headerlink" title="5.Null类型"></a>5.Null类型</h4><p>Null 是 Javascript 中特殊的原始数据类型，它只有一个值，即 null，字面意思是：“空值”。它的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态</p>
+<h4 id="6-Symbol类型"><a href="#6-Symbol类型" class="headerlink" title="6.Symbol类型"></a>6.Symbol类型</h4><p>Symbol 是 ES6 新增的一种原始数据类型，它的字面意思是：符号、标记，代表独一无二的值。</p>
+<p>Symbol 作为基本类型，没有对应的包装类型，也就是说 Symbol 本身不是对象，而是一个函数。因此，在生成 Symbol 类型值的时候，不能使用 new 操作符 。</p>
+<h4 id="7-Object类型"><a href="#7-Object类型" class="headerlink" title="7.Object类型"></a>7.Object类型</h4><p>1.存储</p>
+<p>堆存储</p>
+<p>2.属性类型</p>
+<p>ECMA-262 第 5 版定义了一些内部特性（attribute），用以描述对象属性（property）的各种特征。ECMA-262 定义这些特性是为了实现 JavaScript 引擎用的，因此在 JavaScript 中不能直接访问它们。为了表示特性是内部值，该规范把它们放在了两对儿方括号中，例如<code>[[Enumerable]]</code>。 这些内部特性可以分为两种：数据属性 和 访问器属性。</p>
+<ul>
+<li>数据属性<ul>
+<li><code>[[Configurable]]</code>：能否通过 delete 删除属性从而重新定义属性，或者能否把属性修改为访问器属性。该默认值为 true。</li>
+<li><code>[[Enumerable]]</code>：表示能否通过 for-in 循环返回属性。默认值为 true。</li>
+<li><code>[[Writable]]</code>：能否修改属性的值。默认值为 true。</li>
+<li><code>[[Value]]</code>：包含这个属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置。默认值为 undefined 。</li>
+</ul>
+</li>
+<li>访问器属性<ul>
+<li><code>[[Get]]</code>：在读取属性时调用的函数。默认值为 undefined</li>
+<li><code>[[Set]]</code>：在写入属性时调用的函数。默认值为 undefined</li>
+</ul>
+</li>
+</ul>
+<p>要修改属性默认的特性，必须使用 ECMAScript 5 的 Object.defineProperty() 方法</p>
+<p>3.对象创建方式</p>
+<p>工厂模式、构造函数、原型模式</p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN：JavaScript</a></li>
+<li><a target="_blank" rel="noopener" href="https://pediaa.com/what-is-the-difference-between-interpreter-and-jit-compiler/#:~:text=The%20basic%20difference%20between%20Interpreter,machine%20codes%20at%20run%20time.">What is the Difference Between Interpreter and JIT Compiler</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/onepixel/p/5140944.html">细说 JavaScript 七种数据类型</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">前端面试基础知识总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
+                    
+                      <a class="hover-with-bg" href="/tags/interview/">interview</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/18/front-end-interview-preparation-2/">
+                        <span class="hidden-mobile">前端面试基础知识总结（二）：CSS</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
