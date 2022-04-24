@@ -16,16 +16,16 @@
   <meta name="author" content="Cany Zhou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自MDN，如">
+    <meta name="description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式、单线程的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自M">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端面试基础知识总结（三）：JavaScript">
 <meta property="og:url" content="http://example.com/2022/04/23/front-end-interview-preparation-3/index.html">
 <meta property="og:site_name" content="CanyZhou&#39;s Blog">
-<meta property="og:description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自MDN，如">
+<meta property="og:description" content="JavaScript ( JS ) 是一种具有头等函数的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式、单线程的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。 开头来自M">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/js-banner.png">
 <meta property="article:published_time" content="2022-04-23T11:40:11.000Z">
-<meta property="article:modified_time" content="2022-04-23T13:32:37.287Z">
+<meta property="article:modified_time" content="2022-04-24T14:23:03.781Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -174,7 +174,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/default.jpeg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.6k 字
+      4.3k 字
     </span>
   
 
@@ -209,7 +209,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      30 分钟
+      36 分钟
     </span>
   
 
@@ -241,7 +241,7 @@
             <h1 style="display: none">前端面试基础知识总结（三）：JavaScript</h1>
             
             <div class="markdown-body">
-              <p>JavaScript ( JS ) 是一种具有<code>头等函数</code>的轻量级，<code>解释型</code>或<code>即时编译型</code>的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种<code>基于原型编程</code>、<code>多范式</code>的<code>动态脚本语言</code>，并且支持面向对象、命令式和声明式（如函数式编程）风格。</p>
+              <p>JavaScript ( JS ) 是一种具有<code>头等函数</code>的轻量级，<code>解释型</code>或<code>即时编译型</code>的编程语言。虽然它是作为开发Web页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种<code>基于原型编程</code>、<code>多范式</code>、单线程的<code>动态脚本语言</code>，并且支持面向对象、命令式和声明式（如函数式编程）风格。</p>
 <p>开头来自<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN</a>，如果有疑问可以参考下面的关键词解释：</p>
 <ol>
 <li>头等函数（First-class Function）：当一门编程语言的函数可以被当作变量一样用时，则称这门语言拥有头等函数。例如，在JavaScript中，函数可以被当作参数传递给其他函数，可以作为另一个函数的返回值，还可以被赋值给一个变量。</li>
@@ -270,16 +270,16 @@
 </blockquote>
 <p>1.扩展：UTF-8和GBK的关系？</p>
 <blockquote>
-<p>1.UTF-8是Unicode的实现之一，定义Unicode符号集如何存储。英文使用一个字节，中文使用三个字节来存储。<br>2.GBK英文和中文都使用两个字节来存储。</p>
+<p>1.UTF-8是Unicode的实现之一，定义Unicode符号集如何存储，是为了提高16位编码的使用效率。英文使用一个字节，中文使用三个字节来存储。<br>2.GBK英文和中文都使用两个字节来存储。</p>
 </blockquote>
-<p>2.常用操作方法</p>
+<p>2.常用操作方法（<a target="_blank" rel="noopener" href="https://www.runoob.com/jsref/jsref-obj-string.html">详见菜鸟教程</a>）</p>
 <ul>
-<li>字符操作：charAt，charCodeAt，fromCharCode</li>
-<li>字符串提取：substr，substring ，slice</li>
-<li>位置索引：indexOf ，lastIndexOf</li>
+<li>字符操作：<code>charAt(index)</code>，charCodeAt，fromCharCode</li>
+<li>字符串提取：<code>substr(start[,length])</code>，substring ，<code>slice(start[,end])</code></li>
+<li>位置索引：<code>indexOf(searchvalue[,start])</code> ，lastIndexOf</li>
 <li>大小写转换：toLowerCase，toUpperCase</li>
-<li>模式匹配：match，search，replace，split</li>
-<li>其他操作：concat，trim，localeCompare</li>
+<li>模式匹配：<code>match(regexp)</code>，<code>search(searchVal)</code>，<code>replace(searchVal,newVal)</code>，<code>split([separator[,limit]])</code></li>
+<li>其他操作：<code>concat(string1, string2, ..., stringX)</code>，trim，localeCompare</li>
 </ul>
 <p>3.基本包装类型（String、Number、Boolean都是）</p>
 <p>为了方便的对字符串进行操作，ECMAScript 提供了一个基本包装类型：String 对象 。它是一种特殊的引用类型，JS引擎每当读取一个字符串的时候，就会在内部创建一个对应的 String 对象，该对象提供了很多操作字符的方法，这就是为什么能对字符串调用方法的原因。</p>
@@ -291,9 +291,10 @@
 </ul>
 <h4 id="2-Number类型"><a href="#2-Number类型" class="headerlink" title="2.Number类型"></a>2.Number类型</h4><p>双精度IEEE754 64位浮点数。JavaScript 能够准确表示的整数范围在 -2^53 到 2^53 之间（不含两个端点），超过这个范围，无法精确表示这个整数。</p>
 <p>1.存储结构</p>
-<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171013113026887-1981568120.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>2.为什么浮点数运算会有误差？</p>
-<p>十进制转换成二进制在进行运算会丢失精度，计算结果从二进制转换成十进制也会丢失精度。</p>
+<p><img src="/img/front-end-interview-preparation/number-storage-structure.png" srcset="/img/loading.gif" lazyload alt="存储结构"></p>
+<p>2.为什么浮点数运算会有误差？（比如<code>0.1 + 0.2 !== 0.3</code>）</p>
+<p>事实上，这个问题并不只是在JavaScript中才会出现，任何使用二进制浮点数的编程语言都会有这个问题。因为十进制转换成二进制再进行运算会丢失精度，计算结果从二进制转换成十进制也会丢失精度。</p>
+<p>解决方案：可以把小数转化成整数运算之后再变回小数来解决。</p>
 <p>3.数值转换</p>
 <p><code>Number(value)</code> 和 <code>+ value</code> 只能对字符串进行整体转换</p>
 <p><code>parseInt(string[, radix])</code>和<code>parseFloat(string)</code> 可以对字符串进行部分转换，即只转换第一个无效字符之前的字符</p>
@@ -310,17 +311,13 @@
 </ul>
 <p>5.四舍五入</p>
 <ul>
-<li>向上取整：ceil</li>
-<li>向下取整：floor</li>
-<li>四舍五入：round</li>
-<li>固定精度：toFixed</li>
-<li>固定长度：toPrecision</li>
-<li>取整：parseInt、位运算</li>
+<li>向上取整：<code>Math.ceil</code></li>
+<li>向下取整：<code>Math.floor</code></li>
+<li>四舍五入：<code>Math.round</code></li>
+<li>固定精度（小数点后x位）：<code>toFixed(x)</code></li>
+<li>固定长度：<code>toPrecision(x)</code></li>
+<li>取整：<code>parseInt</code>、位运算</li>
 </ul>
-<p>6.为什么JS最大值是 2^53 ?</p>
-<blockquote>
-<p>IEEE 754规定，有效数字第一位默认总是1，不保存在64位浮点数之中。也就是说，有效数字总是1.xx…xx的形式，其中xx..xx的部分保存在64位浮点数之中，最长可能为52位</p>
-</blockquote>
 <h4 id="3-Boolean类型"><a href="#3-Boolean类型" class="headerlink" title="3.Boolean类型"></a>3.Boolean类型</h4><p>Boolean 类型只有两个字面值：true 和 false。在 JavaScript 中，所有类型的值都可以转化为与 Boolean 等价的值。</p>
 <p>JavaScript 按照如下规则将变量转换成布尔类型：</p>
 <ul>
@@ -358,6 +355,29 @@
 <p>要修改属性默认的特性，必须使用 ECMAScript 5 的 Object.defineProperty() 方法</p>
 <p>3.对象创建方式</p>
 <p>工厂模式、构造函数、原型模式</p>
+<h4 id="数据类型的比较"><a href="#数据类型的比较" class="headerlink" title="数据类型的比较"></a>数据类型的比较</h4><ul>
+<li><code>==</code> 如果数值不相等，会进行类型转换</li>
+<li><code>===</code> 不进行类型转换</li>
+<li><code>Object.is</code> 和&#x3D;&#x3D;&#x3D;类似，但是对于 NaN,+0,-0 会有特殊处理<ul>
+<li><code>Object.is(NaN, NaN)</code> true</li>
+<li><code>Object.is(+0, -0)</code> false</li>
+</ul>
+</li>
+<li>fun1.toString() &#x3D;&#x3D;&#x3D; fun2.toString() 判断两个函数相等</li>
+</ul>
+<h4 id="判断类型的方法"><a href="#判断类型的方法" class="headerlink" title="判断类型的方法"></a>判断类型的方法</h4><ol>
+<li>typeof 能判断出基本数据类型(包括es6中的symbol，除了null)和object、function<ul>
+<li>typeof null &#x3D;&#x3D; “object”的原理（JS在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息。由于null的所有机器码均为0，于是被当做对象看待，这是JS的历史遗留bug。）</li>
+</ul>
+</li>
+<li>instanceof 检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上<ul>
+<li>undefined和null被检测为object</li>
+</ul>
+</li>
+<li>constructor 弊端就是constructor所指向的的构造函数是可以被修改的</li>
+<li><code>Object.prototype.toString.call</code></li>
+<li>使用API：如<code>Array.isArray</code></li>
+</ol>
 <h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN：JavaScript</a></li>
 <li><a target="_blank" rel="noopener" href="https://pediaa.com/what-is-the-difference-between-interpreter-and-jit-compiler/#:~:text=The%20basic%20difference%20between%20Interpreter,machine%20codes%20at%20run%20time.">What is the Difference Between Interpreter and JIT Compiler</a></li>
