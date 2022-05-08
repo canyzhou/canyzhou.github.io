@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/js-banner.png">
 <meta property="article:published_time" content="2022-04-23T11:40:11.000Z">
-<meta property="article:modified_time" content="2022-04-25T12:48:43.720Z">
+<meta property="article:modified_time" content="2022-05-08T12:28:08.223Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.3k 字
+      8.5k 字
     </span>
   
 
@@ -209,7 +209,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      61 分钟
+      71 分钟
     </span>
   
 
@@ -431,7 +431,52 @@
 <p>注意一下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">let</span> n = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">typeof</span> n; <span class="hljs-comment">// number</span><br>n <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Number</span>; <span class="hljs-comment">// false</span><br><span class="hljs-comment">// ---------------------</span><br><span class="hljs-keyword">let</span> n2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Number</span>(<span class="hljs-number">1</span>);<br><span class="hljs-keyword">typeof</span> n2; <span class="hljs-comment">// object</span><br>n <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Number</span>; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="有几种方法可以判断是否是数组"><a href="#有几种方法可以判断是否是数组" class="headerlink" title="有几种方法可以判断是否是数组"></a>有几种方法可以判断是否是数组</h3><ol>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><h4 id="原型是什么？"><a href="#原型是什么？" class="headerlink" title="原型是什么？"></a>原型是什么？</h4><p>JavaScript 常被描述为一种基于原型的语言——每个对象拥有一个原型对象。</p>
+<p>下面举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125;<br><span class="hljs-keyword">const</span> f1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(f1.<span class="hljs-property">__proto__</span>); <span class="hljs-comment">// 指向构造函数的原型对象</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>); <span class="hljs-comment">// 作为函数，指向原型对象</span><br></code></pre></td></tr></table></figure>
+<p>控制台输出：</p>
+<p><code>f1.__proto__</code>和<code>Foo.prototype</code>指向的是同一个东西，即：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javaScript">&#123;<br>    <span class="hljs-attr">constructor</span>: ƒ <span class="hljs-title class_">Foo</span>(), <span class="hljs-comment">// constructor指向构造函数</span><br>    [[prototype]]: <span class="hljs-title class_">Object</span> <span class="hljs-comment">// 原型链中会介绍</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/img/front-end-interview-preparation/prototype.png" srcset="/img/loading.gif" lazyload alt="prototype"></p>
+<p>总结：</p>
+<ul>
+<li>对象<ul>
+<li><code>__proto__</code>属性，指向构造函数的原型对象</li>
+<li><code>constructor</code>属性，指向构造函数（单从constructor属性来讲，只有prototype对象才有这个属性，而其它对象的constructor属性都是通过__proto__对象从prototype继承而来。）</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>也是对象，也有<code>__proto__</code>和<code>constructor</code>属性 </li>
+<li>除此之外还有<code>prototype</code>属性，指向原型对象（而这个原型对象的constructor属性又指向该函数）</li>
+</ul>
+</li>
+</ul>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>当访问一个对象的某个属性时，会先在这个对象本身属性上查找，如果没有找到，则会去它的原型对象上查找，这样的链式结构叫做原型链。</p>
+<p><img src="/img/front-end-interview-preparation/prototype2.png" srcset="/img/loading.gif" lazyload alt="原型链"></p>
+<p>每个对象的__proto__都是指向它的构造函数的原型对象的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javaScript">f1.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span><br></code></pre></td></tr></table></figure>
+<p>构造函数是一个函数对象，是通过 Function 构造器产生的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-title class_">Foo</span>.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span><br></code></pre></td></tr></table></figure>
+<p>原型对象本身是一个普通对象，而普通对象的构造函数都是Object：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span><br></code></pre></td></tr></table></figure>
+<p>所有的构造函数都是函数对象（包括Object），函数对象都是 Function 构造产生的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-title class_">Object</span>.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span><br></code></pre></td></tr></table></figure>
+<p>Object的原型对象也有__proto__属性指向null，null是原型链的顶端：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> === <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<p>总而言之，原型链的尽头: </p>
+<ol>
+<li>对象继承自构造函数的原型对象</li>
+<li>构造函数的原型对象本身是一个对象，继承的是Object.prototype</li>
+<li>Object.prototype的__proto__最终指向null，null是原型链的顶端。</li>
+</ol>
+<h4 id="当我们new一个实例的时候，new做了什么？"><a href="#当我们new一个实例的时候，new做了什么？" class="headerlink" title="当我们new一个实例的时候，new做了什么？"></a>当我们new一个实例的时候，new做了什么？</h4><ol>
+<li>为实例开辟内存空间</li>
+<li>把构造函数体内的<code>this</code>指向1中开辟的内存空间</li>
+<li>将新实例的<code>__proto__</code>这个属性指向对应构造函数的<code>prototype</code>属性</li>
+<li>构造函数会帮你把你创建的实例return出来</li>
+</ol>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="有几种方法可以判断是否是数组"><a href="#有几种方法可以判断是否是数组" class="headerlink" title="有几种方法可以判断是否是数组"></a>有几种方法可以判断是否是数组</h3><ol>
 <li><p>首先 typeof 肯定不行，判读一些引用类型时，不能具体到具体哪一种类型。</p>
 </li>
 <li><p>使用<code>instanceof</code>或<code>constructor</code></p>
@@ -448,6 +493,7 @@
 <li><a target="_blank" rel="noopener" href="https://pediaa.com/what-is-the-difference-between-interpreter-and-jit-compiler/#:~:text=The%20basic%20difference%20between%20Interpreter,machine%20codes%20at%20run%20time.">What is the Difference Between Interpreter and JIT Compiler</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/onepixel/p/5140944.html">细说 JavaScript 七种数据类型</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Equality">MDN：相等（&#x3D;&#x3D;）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/cc18868876837/article/details/81211729">帮你彻底搞懂JS中的prototype、__proto__与constructor（图解）</a></li>
 </ol>
 
             </div>
@@ -484,6 +530,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/05/08/vue2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue2数据响应式原理解析</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
