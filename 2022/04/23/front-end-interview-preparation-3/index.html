@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/js-banner.png">
 <meta property="article:published_time" content="2022-04-23T11:40:11.000Z">
-<meta property="article:modified_time" content="2022-05-08T12:28:08.223Z">
+<meta property="article:modified_time" content="2022-05-09T10:30:44.626Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.5k 字
+      14k 字
     </span>
   
 
@@ -209,7 +209,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      71 分钟
+      115 分钟
     </span>
   
 
@@ -258,8 +258,9 @@
 <li>单线程（异步事件通过事件循环机制处理）</li>
 <li>跨平台（浏览器、服务器端）</li>
 </ul>
-<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="/img/front-end-interview-preparation/js-outline.png" srcset="/img/loading.gif" lazyload alt="JavaScript知识点大纲"></p>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>在 JavaScript 规范中，共定义了七种数据类型：</p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="/img/front-end-interview-preparation/js-outline.png" srcset="/img/loading.gif" lazyload alt="JavaScript核心知识点大纲"></p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p><img src="/img/front-end-interview-preparation/js-data-type.png" srcset="/img/loading.gif" lazyload alt="数据类型-大纲"></p>
+<p>在 JavaScript 规范中，共定义了七种数据类型：</p>
 <ul>
 <li>基本数据类型：Number、String、Boolean、Undefined、Null、Symbol</li>
 <li>复杂数据类型：Object</li>
@@ -431,7 +432,8 @@
 <p>注意一下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">let</span> n = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">typeof</span> n; <span class="hljs-comment">// number</span><br>n <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Number</span>; <span class="hljs-comment">// false</span><br><span class="hljs-comment">// ---------------------</span><br><span class="hljs-keyword">let</span> n2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Number</span>(<span class="hljs-number">1</span>);<br><span class="hljs-keyword">typeof</span> n2; <span class="hljs-comment">// object</span><br>n <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Number</span>; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><h4 id="原型是什么？"><a href="#原型是什么？" class="headerlink" title="原型是什么？"></a>原型是什么？</h4><p>JavaScript 常被描述为一种基于原型的语言——每个对象拥有一个原型对象。</p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p><img src="/img/front-end-interview-preparation/js-prototype.png" srcset="/img/loading.gif" lazyload alt="原型-大纲"></p>
+<h4 id="原型是什么？"><a href="#原型是什么？" class="headerlink" title="原型是什么？"></a>原型是什么？</h4><p>JavaScript 常被描述为一种基于原型的语言——每个对象拥有一个原型对象。</p>
 <p>下面举个例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125;<br><span class="hljs-keyword">const</span> f1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(f1.<span class="hljs-property">__proto__</span>); <span class="hljs-comment">// 指向构造函数的原型对象</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>); <span class="hljs-comment">// 作为函数，指向原型对象</span><br></code></pre></td></tr></table></figure>
 <p>控制台输出：</p>
@@ -476,7 +478,140 @@
 <li>将新实例的<code>__proto__</code>这个属性指向对应构造函数的<code>prototype</code>属性</li>
 <li>构造函数会帮你把你创建的实例return出来</li>
 </ol>
-<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="有几种方法可以判断是否是数组"><a href="#有几种方法可以判断是否是数组" class="headerlink" title="有几种方法可以判断是否是数组"></a>有几种方法可以判断是否是数组</h3><ol>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p><img src="/img/front-end-interview-preparation/js-scope.png" srcset="/img/loading.gif" lazyload alt="作用域-大纲"></p>
+<p>作用域：本质上就是程序存储和访问变量的规则。作用域就是在这个规则约束下的一个变量、函数、标识符可以被访问的区域。</p>
+<h4 id="三种作用域"><a href="#三种作用域" class="headerlink" title="三种作用域"></a>三种作用域</h4><ul>
+<li>全局作用域</li>
+<li>块级作用域<ul>
+<li>函数不是块，在语法中的block是指if&#x2F;else&#x2F;for&#x2F;while语句里2个大括号之间的部分。</li>
+<li>let和const是块级作用域</li>
+</ul>
+</li>
+<li>函数作用域<ul>
+<li>var是全局或某个函数作用域</li>
+</ul>
+</li>
+</ul>
+<h4 id="var、let和const的区别"><a href="#var、let和const的区别" class="headerlink" title="var、let和const的区别"></a>var、let和const的区别</h4><ul>
+<li>使用var声明的变量，函数内部作用域，能重复声明覆盖，且存在变量提升现象；</li>
+<li>使用let声明的变量，块级作用域，不能重复声明覆盖，不存在变量提升；</li>
+<li>使用const声明的是常量，块级作用域，在后面出现的代码中不能再修改该常量的值；</li>
+</ul>
+<p>使用总结：</p>
+<ul>
+<li>函数内部用var和let都可以，块级作用域最好用let。</li>
+<li>在绝大多数情况下，let是可以代替var的，但是如果需要用到一些特殊功能，比如需要变量提升，需要在外部能引用内部定义的变量( 比如 try{ … }catch{ … } 语句块)，需要把变量定义为全局的属性的时候，就需要使用var。所以let不能完全替换var。</li>
+</ul>
+<h4 id="作用域链和两种工作模式"><a href="#作用域链和两种工作模式" class="headerlink" title="作用域链和两种工作模式"></a>作用域链和两种工作模式</h4><p>作用域链：<br>如果当前作用域中找不到变量，会探出头到外面的作用域中找。在这个查找过程中，层层递进的作用域，就形成了一条作用域链。</p>
+<p>两种工作模型：</p>
+<ul>
+<li>词法作用域：在代码书写的时候完成划分，作用域链沿着它定义的位置往外延伸（JS等）</li>
+<li>动态作用域：在代码运行时完成划分，作用域链沿着它的调用栈往外延伸（Bash、Perl）</li>
+</ul>
+<p>JS中词法作用域的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;xiuyan&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">showName</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">changeName</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;BigBear&#x27;</span>;<br>    <span class="hljs-title function_">showName</span>();<br>&#125;<br><br><span class="hljs-title function_">changeName</span>();     <span class="hljs-comment">// xiuyan</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="修改词法作用域"><a href="#修改词法作用域" class="headerlink" title="修改词法作用域"></a>修改词法作用域</h4><p>eval能修改词法作用域：</p>
+<p>eval 函数的入参是一个字符串。当 eval 拿到一个字符串入参后，它会把这段字符串的内容当做一段 js 代码（不管它是不是一段 js 代码），插入自己被调用的那个位置。看下面这个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">showName</span>(<span class="hljs-params">str</span>) &#123;<br>  <span class="hljs-built_in">eval</span>(str)<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name)<br>&#125;<br><br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;aa&#x27;</span><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;var name = &quot;bb&quot;&#x27;</span><br><br><span class="hljs-title function_">showName</span>(str) <span class="hljs-comment">// 输出 bb</span><br></code></pre></td></tr></table></figure>
+
+<p>eval (str) 这行代码被执行后作用域内 name 的值就从 ‘aa’ 变成了 ‘bb’，它成功地 “修改” 了词法作用域规则约束下在书写阶段就划分好的作用域。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p><img src="/img/front-end-interview-preparation/js-closure.png" srcset="/img/loading.gif" lazyload alt="闭包-大纲"></p>
+<p>闭包是为了：保证局部变量常驻在内存中，只能通过固定的方式访问，不可以被所有人访问。</p>
+<h4 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h4><ol>
+<li>模拟私有变量的实现</li>
+<li>柯里化和偏函数</li>
+<li>防抖节流</li>
+</ol>
+<h4 id="应用1：模拟私有变量的实现"><a href="#应用1：模拟私有变量的实现" class="headerlink" title="应用1：模拟私有变量的实现"></a>应用1：模拟私有变量的实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myObject = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> value = <span class="hljs-number">0</span>; <span class="hljs-comment">//闭包：可以保护内部值value不被非法更改</span><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">increment</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">inc</span>) &#123;<br>      value += <span class="hljs-keyword">typeof</span> inc === <span class="hljs-string">&#x27;number&#x27;</span> ? inc : <span class="hljs-number">1</span>;<br>    &#125;,<br>    <span class="hljs-attr">getValue</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> value;<br>    &#125;<br>  &#125;<br>&#125;());<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myObject.<span class="hljs-title function_">getValue</span>()); <span class="hljs-comment">// 0</span><br>myObject.<span class="hljs-title function_">increment</span>(<span class="hljs-number">5</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myObject.<span class="hljs-title function_">getValue</span>()); <span class="hljs-comment">// 5</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="应用2：柯里化和偏函数"><a href="#应用2：柯里化和偏函数" class="headerlink" title="应用2：柯里化和偏函数"></a>应用2：柯里化和偏函数</h4><p>柯里化：将一个 n 个参数的函数转换成 n 个单参数函数，例如把<code>fn(a,b,c)</code>变成<code>fn(a)(b)(c)</code>。</p>
+<p>偏函数：固定你函数的某一个或几个参数，然后返回一个新的函数（这个函数用于接收剩下的参数）。偏函数应用是不强调 “单参数” 这个概念的，它的目标仅仅是把函数的入参拆解为两部分。</p>
+<p>原有的函数形式与调用方法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">generateName</span>(<span class="hljs-params">prefix, type, itemName</span>) &#123;<br>    <span class="hljs-keyword">return</span> prefix + type + itemName<br>&#125;<br><br><span class="hljs-comment">// 调用时一口气传入3个入参</span><br><span class="hljs-keyword">var</span> itemFullName = <span class="hljs-title function_">generateName</span>(<span class="hljs-string">&#x27;大卖网&#x27;</span>, <span class="hljs-string">&#x27;母婴&#x27;</span>, <span class="hljs-string">&#x27;奶瓶&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>偏函数应用改造：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">generateName</span>(<span class="hljs-params">prefix</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">type, itemName</span>) &#123;<br>        <span class="hljs-keyword">return</span> prefix + type + itemName<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 把3个参数分两部分传入</span><br><span class="hljs-keyword">var</span> itemFullName = <span class="hljs-title function_">generateName</span>(<span class="hljs-string">&#x27;大卖网&#x27;</span>)(<span class="hljs-string">&#x27;母婴&#x27;</span>, <span class="hljs-string">&#x27;奶瓶&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>柯里化应用改造：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">generateName</span>(<span class="hljs-params">prefix</span>) &#123;  <br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">itemName</span>) &#123;<br>            <span class="hljs-keyword">return</span> prefix + type + itemName<br>        &#125;    <br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> itemFullName = <span class="hljs-title function_">generateName</span>(<span class="hljs-string">&#x27;洗菜网&#x27;</span>)(<span class="hljs-string">&#x27;生鲜&#x27;</span>)(<span class="hljs-string">&#x27;菠菜&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="应用3：防抖节流"><a href="#应用3：防抖节流" class="headerlink" title="应用3：防抖节流"></a>应用3：防抖节流</h4><p>防抖：如果短时间内大量触发同一事件，只会执行最后一次函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">debounce</span>(<span class="hljs-params">fn, delay</span>) &#123;<br>  <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) &#123;<br>    <span class="hljs-built_in">clearTimeout</span>(timer);<br>    timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, args);<br>    &#125;, delay);<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>节流：如果短时间内大量触发同一事件，那么在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">throttle</span>(<span class="hljs-params">fn, delay</span>) &#123;<br>  <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">...args</span>)&#123;<br>    <span class="hljs-keyword">if</span>(!timer)&#123;<br>      timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        timer = <span class="hljs-literal">null</span>;<br>        fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, args);<br>      &#125;, delay)<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="闭包的问题"><a href="#闭包的问题" class="headerlink" title="闭包的问题"></a>闭包的问题</h4><p>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，可能导致<strong>内存泄露</strong>。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><img src="/img/front-end-interview-preparation/js-this.png" srcset="/img/loading.gif" lazyload alt="this-大纲"></p>
+<p>this是当前执行上下文的一个属性。执行上下文有：全局上下文、函数上下文、Eval上下文。</p>
+<h4 id="this的指向"><a href="#this的指向" class="headerlink" title="this的指向"></a>this的指向</h4><ol>
+<li>指向调用它所在方法的那个对象（在调用时决定的）。<blockquote>
+<p>当调用方法没有明确对象时，this 就指向全局对象。在浏览器中，指向 window；在 Node 中，指向 Global。（严格模式下，指向 undefined）</p>
+</blockquote>
+</li>
+<li>箭头函数this由书写位置决定（继承执行上下文的this）。</li>
+<li>在立即指向函数，setTimeout&#x2F;setInterval，this指向window。<blockquote>
+<p>严格模式下，立即执行函数中this&#x3D;undefined，setTimeout和setInterval中this&#x3D;window。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-comment">// 声明位置</span><br><span class="hljs-keyword">var</span> me = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;aa&#x27;</span>,<br>  <span class="hljs-attr">hello</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`你好，我是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>)<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;bb&#x27;</span><br><span class="hljs-keyword">var</span> hello = me.<span class="hljs-property">hello</span> <br><br><span class="hljs-comment">// 调用位置</span><br>me.<span class="hljs-title function_">hello</span>() <span class="hljs-comment">// 你好，我是aa</span><br><span class="hljs-title function_">hello</span>() <span class="hljs-comment">// 你好， 我是bb</span><br></code></pre></td></tr></table></figure>
+
+<p>稍微改动一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-comment">// 声明位置</span><br><span class="hljs-keyword">var</span> me = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;me&#x27;</span>,<br>  <span class="hljs-attr">hello</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`你好，我是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>)<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> you = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;you&#x27;</span>,<br>  <span class="hljs-attr">hello</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> targetFunc = me.<span class="hljs-property">hello</span><br>    <span class="hljs-title function_">targetFunc</span>()<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;bb&#x27;</span><br><br><span class="hljs-comment">// 调用位置</span><br>you.<span class="hljs-title function_">hello</span>() <span class="hljs-comment">// 你好，我是bb</span><br></code></pre></td></tr></table></figure>
+
+<p>乍一看，会输出you，而不是bb。但会我们会输出bb呢？</p>
+<p>看我们例题中的 targetFunc 这个方法，大家之所以第一直觉会认为它的 this 应该指向 you 这个对象，其实还是因为把 “声明位置” 和 “调用位置” 混淆了。我们看到虽然 targetFunc 是在 you 对象的 hello 方法里声明的，但是在调用它的时候，我们是不是没有给 targetFunc 指明任何一个对象作为它前缀？ 所以 you 对象的 this 并不会神奇地自动传入 targetFunc 里，js 引擎仍然会认为 targetFunc 是一个挂载在 window 上的方法，进而把 this 指向 window 对象。</p>
+<h4 id="改变this的指向"><a href="#改变this的指向" class="headerlink" title="改变this的指向"></a>改变this的指向</h4><p>this绑定的优先级：</p>
+<ol>
+<li>构造函数 new 实例时绑定</li>
+<li>显式绑定</li>
+</ol>
+<ul>
+<li>仅改变：<code>bind</code></li>
+<li>改变后直接调用：<code>call</code>、<code>apply</code><ul>
+<li><code>fn.call(target,arg1,arg2, ...)</code></li>
+<li><code>fn.apply(target, [arg1, ...])</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p><img src="/img/front-end-interview-preparation/memory-management.png" srcset="/img/loading.gif" lazyload alt="内存管理-大纲"></p>
+<h4 id="内存的数据结构"><a href="#内存的数据结构" class="headerlink" title="内存的数据结构"></a>内存的数据结构</h4><ul>
+<li>栈（Stack）：函数调用会在内存形成一个”调用记录”，又称”调用帧”（call frame）。所有的调用记录，就形成一个”调用栈”（call stack）。先进后出。</li>
+<li>堆（Heap）：对象被分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。</li>
+<li>队列（Queue）：一个 JavaScript 运行时包含了一个待处理消息的消息队列。先进先出。</li>
+</ul>
+<h4 id="内存的生命周期"><a href="#内存的生命周期" class="headerlink" title="内存的生命周期"></a>内存的生命周期</h4><p>不管什么程序语言，内存生命周期基本是一致的：   </p>
+<ol>
+<li>分配你所需要的内存</li>
+<li>使用分配到的内存（读、写）</li>
+<li>不需要时将其释放\归还</li>
+</ol>
+<p>所有语言第二部分都是明确的。第一和第三部分在底层语言中是明确的，但在像JavaScript这些高级语言中，大部分都是隐含的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">20</span>;  <span class="hljs-comment">// 在内存中给数值变量分配空间</span><br><span class="hljs-title function_">alert</span>(a + <span class="hljs-number">100</span>);  <span class="hljs-comment">// 使用内存</span><br>a = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 使用完毕之后，释放内存空间</span><br></code></pre></td></tr></table></figure>
+
+<p>JS在初始化变量时就会自动分配内存空间（1、2），那么我们主要要探究的就是如何垃圾回收（3）。</p>
+<h4 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h4><p>垃圾回收算法的中心思想是判断内存是否<strong>不再需要</strong>。</p>
+<ol>
+<li><p><strong>引用计数垃圾收集</strong></p>
+<p>这是最初级的垃圾收集算法。如果没有引用指向该对象（零引用），对象将被垃圾回收机制回收。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//但是，对象被循环引用时内存发生泄漏</span><br><span class="hljs-comment">//下面这个例子：即使这个DOM元素从DOM树中删除了，所占用的内存空间也永远无法释放</span><br><span class="hljs-keyword">var</span> div;<br><span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-comment">//循环引用</span><br>  div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;myDivElement&quot;</span>);<br>  div.<span class="hljs-property">circularReference</span> = div;<br>  <span class="hljs-comment">//占据大量内存空间</span><br>  div.<span class="hljs-property">lotsOfData</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(<span class="hljs-number">10000</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;*&quot;</span>); <br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>标记-清除算法</strong></p>
+<p>这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”。</p>
+<ul>
+<li>标记阶段：在此阶段,垃圾回收器会从根对象开始遍历，标识可到达对象</li>
+<li>清处阶段：会对堆内存从头到尾进行线性遍历，清处没被标识为可到达对象的对象</li>
+</ul>
+<p>循环引用将不再是问题，因为两个对象都无法获取的情况下，将会被垃圾回收器回收。从2012年起，所有现代浏览器都使用了标记-清除垃圾回收算法。</p>
+</li>
+</ol>
+<h4 id="JS中的堆内存和栈内存"><a href="#JS中的堆内存和栈内存" class="headerlink" title="JS中的堆内存和栈内存"></a>JS中的堆内存和栈内存</h4><p>在js引擎中对变量的存储主要有两种位置，<strong>堆内存和栈内存</strong>。</p>
+<p><strong>栈内存</strong>主要用于存储各种<strong>基本类型的</strong>变量，包括Boolean、Number、String、Undefined、Null以及对象变量的指针，这时候栈内存给人的感觉就像一个线性排列的空间，每个小单元大小基本相等。</p>
+<p>而堆内存主要负责像对象Object这种变量类型的存储，如下图：</p>
+<p><img src="/img/front-end-interview-preparation/stack-and-heap.png" srcset="/img/loading.gif" lazyload alt="栈内存和堆内存"></p>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="有几种方法可以判断是否是数组"><a href="#有几种方法可以判断是否是数组" class="headerlink" title="有几种方法可以判断是否是数组"></a>有几种方法可以判断是否是数组</h3><ol>
 <li><p>首先 typeof 肯定不行，判读一些引用类型时，不能具体到具体哪一种类型。</p>
 </li>
 <li><p>使用<code>instanceof</code>或<code>constructor</code></p>
@@ -494,6 +629,12 @@
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/onepixel/p/5140944.html">细说 JavaScript 七种数据类型</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Equality">MDN：相等（&#x3D;&#x3D;）</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/cc18868876837/article/details/81211729">帮你彻底搞懂JS中的prototype、__proto__与constructor（图解）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.imooc.com/read/70">慕课网专栏：解锁前端面试体系核心攻略</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heioray/p/9487093.html">浅析JS中的堆内存与栈内存</a></li>
+<li><a target="_blank" rel="noopener" href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/yi-3001-nei-cun-kong-jian-xiang-jie.html">yangbo5207的文章:内存空间</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e81fcb8e7a43">由JavaScript堆栈溢出引出的函数式编程思想</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management">MDN：内存管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop">MDN：并发模型与时间循环</a></li>
 </ol>
 
             </div>
