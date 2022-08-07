@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/front-end-interview-preparation/web-osi.png">
 <meta property="article:published_time" content="2022-05-14T11:27:20.000Z">
-<meta property="article:modified_time" content="2022-08-04T16:05:06.146Z">
+<meta property="article:modified_time" content="2022-08-07T15:38:57.920Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.7k 字
+      10k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56 分钟
+      85 分钟
     </span>
   
 
@@ -570,7 +570,7 @@
 <td>充当网关或代理的服务器，未及时从远端服务器获取请求</td>
 </tr>
 </tbody></table>
-<h2 id="HTTP-x2F-2-0"><a href="#HTTP-x2F-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h2><p>TBC.</p>
+<h2 id="HTTP-x2F-2-0"><a href="#HTTP-x2F-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h2><h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>TBC.</p>
 <h2 id="跨域及解决方案"><a href="#跨域及解决方案" class="headerlink" title="跨域及解决方案"></a>跨域及解决方案</h2><h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="简单请求和非简单请求"><a href="#简单请求和非简单请求" class="headerlink" title="简单请求和非简单请求"></a>简单请求和非简单请求</h4><p>简单请求和非简单请求的概念是针对跨源域资源共享而言的。跨源域资源共享（CORS）机制允许 Web 应用服务器进行跨源访问控制，从而使跨源数据传输得以安全进行。</p>
 <p>其中，简单请求不会触发 CORS 预检请求。而非简单请求会触发预检请求，即该请求必须首先使用 OPTIONS 方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。</p>
 <p>若请求满足所有下述条件，则该请求可视为“简单请求”：</p>
@@ -597,7 +597,7 @@
 <li>认证（Authentication）<br>认证涉及一方应用和一方用户，用于描述用户在该应用下的身份。认证可以简单理解为登录，以此确认你是一个合法的用户。</li>
 <li>授权（Authorisation）<br>授权涉及两方应用和一方用户，用于描述第三方应用有哪些操作权限。</li>
 </ul>
-<h3 id="常见方式"><a href="#常见方式" class="headerlink" title="常见方式"></a>常见方式</h3><h4 id="Session-Cookie"><a href="#Session-Cookie" class="headerlink" title="Session-Cookie"></a>Session-Cookie</h4><p>Session-Cookie 的认证流程如下：</p>
+<h3 id="常见鉴权方式"><a href="#常见鉴权方式" class="headerlink" title="常见鉴权方式"></a>常见鉴权方式</h3><h4 id="Session-Cookie"><a href="#Session-Cookie" class="headerlink" title="Session-Cookie"></a>Session-Cookie</h4><p>Session-Cookie 的认证流程如下：</p>
 <ol>
 <li>用户向服务器发送用户名和密码。</li>
 <li>服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。</li>
@@ -640,7 +640,115 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">HMACSHA256</span>(<br>  <span class="hljs-title function_">base64UrlEncode</span>(header) + <span class="hljs-string">&quot;.&quot;</span> +<br>  <span class="hljs-title function_">base64UrlEncode</span>(payload),<br>  secret)<br></code></pre></td></tr></table></figure>
 
 <p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用”点”（.）分隔，就可以返回给用户。</p>
-<h4 id="OAuth-授权"><a href="#OAuth-授权" class="headerlink" title="OAuth 授权"></a>OAuth 授权</h4><p>允许用户授权第三方网站访问他们存储在另外的服务提供者上的信息。</p>
+<h4 id="OAuth2-0-授权"><a href="#OAuth2-0-授权" class="headerlink" title="OAuth2.0 授权"></a>OAuth2.0 授权</h4><p>允许用户授权第三方网站访问他们存储在另外的服务提供者上的信息。</p>
+<h5 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h5><p>OAuth 2.0的运行流程如下图，摘自<a target="_blank" rel="noopener" href="http://www.rfcreader.com/#rfc6749">RFC 6749</a>:</p>
+<div class="code-wrapper"><pre><code class="hljs">+--------+                               +---------------+
+|        |--(A)- Authorization Request -&gt;|   Resource    |
+|        |                               |     Owner     |
+|        |&lt;-(B)-- Authorization Grant ---|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(C)-- Authorization Grant --&gt;| Authorization |
+| Client |                               |     Server    |
+|        |&lt;-(D)----- Access Token -------|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(E)----- Access Token ------&gt;|    Resource   |
+|        |                               |     Server    |
+|        |&lt;-(F)--- Protected Resource ---|               | 
++--------+                               +---------------+
+
+           Figure 1: Abstract Protocol Flow
+</code></pre></div>
+<p>重点在于B步骤：用户怎样才能给于客户端授权。有了这个授权以后，客户端就可以获取令牌，进而凭令牌获取资源。</p>
+<h5 id="授权模式"><a href="#授权模式" class="headerlink" title="授权模式"></a>授权模式</h5><p>OAuth 2.0定义了四种授权方式：授权码模式（authorization code）、简化模式（implicit）、密码模式（resource owner password credentials）、客户端模式（client credentials）。</p>
+<p><strong>授权码模式</strong>是功能最完整、流程最严密的授权模式。它的特点就是通过客户端的后台服务器，与”服务提供商”的认证服务器进行互动。</p>
+<div class="code-wrapper"><pre><code class="hljs"> +----------+
+ | Resource |
+ |   Owner  |
+ |          |
+ +----------+
+      ^
+      |
+     (B)
+ +----|-----+          Client Identifier      +---------------+
+ |         -+----(A)-- &amp; Redirection URI ----&gt;|               |
+ |  User-   |                                 | Authorization |
+ |  Agent  -+----(B)-- User authenticates ---&gt;|     Server    |
+ |          |                                 |               |
+ |         -+----(C)-- Authorization Code ---&lt;|               |
+ +-|----|---+                                 +---------------+
+   |    |                                         ^      v
+  (A)  (C)                                        |      |
+   |    |                                         |      |
+   ^    v                                         |      |
+ +---------+                                      |      |
+ |         |&gt;---(D)-- Authorization Code ---------&#39;      |
+ |  Client |          &amp; Redirection URI                  |
+ |         |                                             |
+ |         |&lt;---(E)----- Access Token -------------------&#39;
+ +---------+       (w/ Optional Refresh Token)
+</code></pre></div>
+<p>步骤如下：</p>
+<p>（A）用户访问客户端，后者将前者导向认证服务器。</p>
+<p>（B）用户选择是否给予客户端授权。</p>
+<p>（C）假设用户给予授权，认证服务器将用户导向客户端事先指定的”重定向URI”（redirection URI），同时附上一个授权码。</p>
+<p>（D）客户端收到授权码，附上早先的”重定向URI”，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。</p>
+<p>（E）认证服务器核对了授权码和重定向URI，确认无误后，向客户端发送访问令牌（access token）和更新令牌（refresh token）。</p>
+<p>下面是这些步骤所需要的参数：</p>
+<p>（A）客户端申请认证的URI，包含以下参数：</p>
+<ul>
+<li>response_type：表示授权类型，必选项，此处的值固定为”code”</li>
+</ul>
+<ul>
+<li>client_id：表示客户端的ID，必选项</li>
+<li>redirect_uri：表示重定向URI，可选项</li>
+<li>scope：表示申请的权限范围，可选项</li>
+<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值。（用于预防CSRF攻击）</li>
+</ul>
+<blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs http">GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz<br>        &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1<br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>server.example.com<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>（C）服务器回应客户端的URI，包含以下参数：</p>
+<ul>
+<li>code：表示授权码，必选项。该码的有效期应该很短，通常设为10分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端ID和重定向URI，是一一对应关系。</li>
+<li>state：如果客户端的请求中包含这个参数，认证服务器的回应也必须一模一样包含这个参数。</li>
+</ul>
+<p>下面是一个例子。</p>
+<blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">302</span> Found<br><span class="hljs-attribute">Location</span><span class="hljs-punctuation">: </span>https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA<br>          &amp;state=xyz<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>D步骤中，客户端向认证服务器申请令牌的HTTP请求，包含以下参数：</p>
+<ul>
+<li>grant_type：表示使用的授权模式，必选项，此处的值固定为”authorization_code”。</li>
+<li>code：表示上一步获得的授权码，必选项。</li>
+<li>redirect_uri：表示重定向URI，必选项，且必须与A步骤中的该参数值保持一致。</li>
+<li>client_id：表示客户端ID，必选项。</li>
+</ul>
+<p>下面是一个例子。</p>
+<blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/token</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>server.example.com<br><span class="hljs-attribute">Authorization</span><span class="hljs-punctuation">: </span>Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/x-www-form-urlencoded<br><br><span class="language-llvm">grant_type<span class="hljs-operator">=</span>authorization_code&amp;code<span class="hljs-operator">=</span>SplxlOBeZQQYbYS<span class="hljs-number">6</span>WxSbIA</span><br><span class="language-llvm">&amp;redirect_uri<span class="hljs-operator">=</span>https<span class="hljs-variable">%3</span>A<span class="hljs-variable">%2</span>F<span class="hljs-variable">%2</span>Fclient<span class="hljs-variable">%2</span>Eexample<span class="hljs-variable">%2</span>Ecom<span class="hljs-variable">%2</span>Fcb</span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>E步骤中，认证服务器发送的HTTP回复，包含以下参数：</p>
+<ul>
+<li>access_token：表示访问令牌，必选项。</li>
+<li>token_type：表示令牌类型，该值大小写不敏感，必选项，可以是bearer类型或mac类型。</li>
+<li>expires_in：表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。</li>
+<li>refresh_token：表示更新令牌，用来获取下一次的访问令牌，可选项。如果用户访问的时候，客户端的”访问令牌”已经过期，则需要使用”更新令牌”申请一个新的访问令牌。</li>
+<li>scope：表示权限范围，如果与客户端申请的范围一致，此项可省略。</li>
+</ul>
+<p>下面是一个例子。</p>
+<blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json;charset=UTF-8<br><span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>no-store<br><span class="hljs-attribute">Pragma</span><span class="hljs-punctuation">: </span>no-cache<br><br><span class="language-json"><span class="hljs-punctuation">&#123;</span></span><br><span class="language-json">  <span class="hljs-attr">&quot;access_token&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;2YotnFZFEjr1zCsicMWpAA&quot;</span><span class="hljs-punctuation">,</span></span><br><span class="language-json">  <span class="hljs-attr">&quot;token_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;example&quot;</span><span class="hljs-punctuation">,</span></span><br><span class="language-json">  <span class="hljs-attr">&quot;expires_in&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">3600</span><span class="hljs-punctuation">,</span></span><br><span class="language-json">  <span class="hljs-attr">&quot;refresh_token&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;tGzv3JOkF0XG5Qx2TlKWIA&quot;</span><span class="hljs-punctuation">,</span></span><br><span class="language-json">  <span class="hljs-attr">&quot;example_parameter&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;example_value&quot;</span></span><br><span class="language-json"><span class="hljs-punctuation">&#125;</span></span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>从上面代码可以看到，相关参数使用JSON格式发送（Content-Type: application&#x2F;json）。此外，HTTP头信息中明确指定不得缓存。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="扫码登录"><a href="#扫码登录" class="headerlink" title="扫码登录"></a>扫码登录</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904111398191117">https://juejin.cn/post/6844904111398191117</a></p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/1/171333eac05db6cb~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="扫码登录全流程"></p>
+<h4 id="小程序登录"><a href="#小程序登录" class="headerlink" title="小程序登录"></a>小程序登录</h4><p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html">https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html</a></p>
+<p>开发者服务器可以根据用户标识来生成自定义登录态：是为了后续业务逻辑中前后端交互时识别用户身份。</p>
+<p><img src="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg" srcset="/img/loading.gif" lazyload alt="小程序登录"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://chinese.freecodecamp.org/news/tcp-vs-udp-which-is-faster/">tcp vs udp</a></li>
 <li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903958624878606">面试官，不要再问我三次握手和四次挥手</a></li>
