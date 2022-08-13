@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Cany Zhou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。 RPCRPC是什么RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RPC与ProtoBuf入门">
+<meta property="og:url" content="http://example.com/2022/08/13/rpc-and-more/index.html">
+<meta property="og:site_name" content="CanyZhou&#39;s Blog">
+<meta property="og:description" content="作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。 RPCRPC是什么RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/rpc-2.png">
+<meta property="article:published_time" content="2022-08-13T08:00:02.000Z">
+<meta property="article:modified_time" content="2022-08-13T16:00:48.820Z">
+<meta property="article:author" content="Cany Zhou">
+<meta property="article:tag" content="back-end">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/rpc-2.png">
+  
+  
+  <title>RPC与ProtoBuf入门 - CanyZhou&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Cany Zhou</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="RPC与ProtoBuf入门">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-13 16:00" pubdate>
+        August 13, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">RPC与ProtoBuf入门</h1>
+            
+            <div class="markdown-body">
+              <p>作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。</p>
+<h1 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h1><h2 id="RPC是什么"><a href="#RPC是什么" class="headerlink" title="RPC是什么"></a>RPC是什么</h2><p>RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
+<p>RPC的目的：能够像调用本地的函数一样去调远程函数。</p>
+<h2 id="完整的RPC框架"><a href="#完整的RPC框架" class="headerlink" title="完整的RPC框架"></a>完整的RPC框架</h2><p>在一个典型 RPC 的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件。</p>
+<p><img src="/img/rpc-1.jpg" srcset="/img/loading.gif" lazyload alt="RPC框架"></p>
+<ul>
+<li>客户端(Client)：服务调用方。</li>
+<li>客户端存根(Client Stub)：存放服务端地址信息，将客户端的请求参数数据信息打包成网络消息，再通过网络传输发送给服务端。</li>
+<li>服务端存根(Server Stub)：接收客户端发送过来的请求消息并进行解包，然后再调用本地服务进行处理。</li>
+<li>服务端(Server)：服务的真正提供者。</li>
+<li>Network Service：底层传输，可以是 TCP 或 HTTP。</li>
+</ul>
+<h2 id="RPC调用流程"><a href="#RPC调用流程" class="headerlink" title="RPC调用流程"></a>RPC调用流程</h2><p><img src="/img/rpc-2.png" srcset="/img/loading.gif" lazyload alt="the principle of RPC"></p>
+<p>客户端向服务端发送请求时（1-5）：</p>
+<ol>
+<li>客户端（Client）通过本地调用的方式调用服务。</li>
+<li>客户端存根（Client Stub）将客户端的请求信息<strong>序列化</strong>成网络消息，再通过网络传输发送给服务端。 </li>
+<li>网络套接字（sockets）进行网络传输。</li>
+<li>服务端存根（Server Stub）接收客户端发送过来的请求消息并进行<strong>反序列化</strong>，然后再调用本地服务进行处理。</li>
+<li>服务端（Server）处理本地服务。</li>
+</ol>
+<p>服务端返回结果也同理。</p>
+<h2 id="RPC与HTTP的关系"><a href="#RPC与HTTP的关系" class="headerlink" title="RPC与HTTP的关系"></a>RPC与HTTP的关系</h2><p>首先需要指正，这两个并不是并行概念。RPC 是一种<strong>设计</strong>，就是为了解决<strong>不同服务之间的调用问题</strong>。</p>
+<p>完整的 RPC 实现一般会包含下面两个协议：</p>
+<ol>
+<li>传输协议</li>
+<li>序列化协议</li>
+</ol>
+<p>而 HTTP 是一种传输协议，RPC 框架完全可以使用 HTTP 作为传输协议，也可以直接使用 TCP，使用不同的协议一般也是为了适应不同的场景。</p>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>传输协议使用TCP</th>
+<th>传输协议使用HTTP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>传输效率</td>
+<td>通常自定义上层协议，可以让请求报文体积更小</td>
+<td>如果是基于HTTP 1.1 的协议，请求中会包含很多无用的内容</td>
+</tr>
+<tr>
+<td>性能消耗：主要在于序列化和反序列化的耗时</td>
+<td>可以基于各种序列化框架（如ProtoBuf）进行，效率比较高</td>
+<td>大部分是通过 json 来实现的，字节大小和序列化耗时都要更消耗性能</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>通常要求客户端和服务器为统一平台</td>
+<td>可以在各种异构系统上运行</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>RPC 主要用于公司内部的服务调用，性能消耗低，传输效率高，实现复杂。</p>
+<p>HTTP 主要用于对外的异构环境，浏览器接口调用，App 接口调用，第三方接口调用等。</p>
+<p>RPC 使用场景(大型的网站，内部子系统较多、接口非常多的情况下适合使用 RPC)：</p>
+<ul>
+<li>长链接。不必每次通信都要像 HTTP 一样去 3 次握手，减少了网络开销。</li>
+<li>注册发布机制。RPC 框架一般都有注册中心，有丰富的监控管理;发布、下线接口、动态扩展等，对调用方来说是无感知、统一化的操作。</li>
+<li>安全性，没有暴露资源操作。</li>
+<li>微服务支持。就是最近流行的服务化架构、服务化治理，RPC 框架是一个强力的支撑。</li>
+</ul>
+<h1 id="CGI"><a href="#CGI" class="headerlink" title="CGI"></a>CGI</h1><p>CGI（Common Gateway Interface，公共网关接口）是Web 服务器运行时外部程序的<strong>规范</strong>，按CGI 编写的程序可以扩展服务器功能。</p>
+<p>CGI实际上是一个接口标准。只要编程语言具有<strong>标准输入、标准输出和环境变量</strong>，就可以用来编写CGI程序（即实现了CGI接口标准的程序）。</p>
+<p>环境变量：环境变量中存放的是一次请求的相关信息，比如QUERY_STRING、CONTENT_TYPE、CONTENT_LENGTH、REQUEST_METHOD、SERVER_NAME等。 </p>
+<p><img src="/img/rpc-3.png" srcset="/img/loading.gif" lazyload alt="cgi通信"></p>
+<p>CGI程序可以用不同的语言来开发，这一层的目的就是对外提供 HTTP访问接口，然后调用后台 RPC 服务。</p>
+<h1 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h1><p>API（Application Programming Interface，应用编程接口）：允许您在另一个应用程序中使用一个应用程序的功能，相比CGI而言是一个宽泛的概念。</p>
+<p>RESTful API是基于REST架构设计理念之下利用http协议来描述接口操作接口。</p>
+<p>API 要被视为 RESTful API，必须遵循以下标准：</p>
+<ul>
+<li>资源：客户端-服务器架构由客户端、服务器和<strong>资源</strong>组成，并且通过 HTTP 管理请求。每一个 URI(统一资源定位符)指向一个特定的资源。</li>
+<li>无状态：无状态客户端-服务器通信，即 get 请求间隔期间，不会存储任何客户端信息，并且每个请求都是独立的，互不关联。</li>
+<li>统一接口：使信息以标准形式传输。RESTful 架构风格规定，数据的元操作，即 CRUD(Create，Read，Update 和 Delete，即数据的增删查改)操作，分别对应于 HTTP 方法：GET 用来获取资源，POST 用来新建资源(也可以用于更新资源)，PUT 用来更新资源，DELETE 用来删除资源。</li>
+<li>可缓存性数据：可简化客户端-服务器交互。</li>
+<li>组织各种类型服务器（负责安全性、负载平衡等的服务器）的分层系统会参与将请求的信息检索到对客户端不可见的层次结构中。</li>
+</ul>
+<h1 id="ProtoBuf"><a href="#ProtoBuf" class="headerlink" title="ProtoBuf"></a>ProtoBuf</h1><h2 id="ProtoBuf是什么"><a href="#ProtoBuf是什么" class="headerlink" title="ProtoBuf是什么"></a>ProtoBuf是什么</h2><p>Protocol Buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的<a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a>结构数据的方法，它可用于（数据）通信协议、数据存储等。</p>
+<p>和 JSON（JavaScript Object Notation）类似，但是JSON是基于文本格式，ProtoBuf是二进制格式。</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>json</th>
+<th>protobuf</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>格式</td>
+<td>基于文本格式</td>
+<td>二进制格式</td>
+</tr>
+<tr>
+<td>支持的语言</td>
+<td>几乎都支持</td>
+<td>Java, Python, Objective-C, 和 C++等</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>易读，应用广泛</td>
+<td>性能好，更多的数据类型，适合应用于<a href="#RPC">RPC</a></td>
+</tr>
+</tbody></table>
+<p>使用 ProtoBuf ，首先需要通过 ProtoBuf 语法定义数据结构(消息)，这些定义好的数据结构保存在.proto为后缀的文件中。</p>
+<p>举个例子: 文件名为<code>response.proto</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 指定protobuf的版本，proto3是最新的语法版本<br>syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-regexp">//</span> 定义数据结构，message 你可以想象成java的class，c语言中的struct<br>message Response &#123;<br>  string data = <span class="hljs-number">1</span>;   <span class="hljs-regexp">//</span> 定义一个string类型的字段，字段名字为data, 标识号为<span class="hljs-number">1</span><br>  int32 status = <span class="hljs-number">2</span>;   <span class="hljs-regexp">//</span> 定义一个int32类型的字段，字段名字为status, 标识号为<span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>标识号：在消息定义中，每个字段后面都有一个唯一的数字，这个就是标识号。用来在消息的二进制格式中识别各个字段的，一旦开始使用就不能够再改变，每个消息内唯一即可。</p>
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><ul>
+<li>序列化：将对象转化成字节序列的过程</li>
+<li>反序列化：将字节序列转化成对象的过程</li>
+</ul>
+<p>下图是protobuf序列化的过程：</p>
+<p><img src="/img/rpc-4.gif" srcset="/img/loading.gif" lazyload alt="Protobuf binary format Serialization"></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Protobuf定义了一套基本数据类型，下表罗列出了protobuf类型和其他语言类型（C++和Java）的映射表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">.proto Type</th>
+<th align="left">Notes</th>
+<th align="left">C++ Type</th>
+<th align="left">Java Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">double</td>
+<td align="left">double</td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left">float</td>
+<td align="left">float</td>
+</tr>
+<tr>
+<td align="left">int32</td>
+<td align="left">使用变长编码，对于负值的效率很低，如果你的域有可能有负值，请使用sint64替代</td>
+<td align="left">int32</td>
+<td align="left">int</td>
+</tr>
+<tr>
+<td align="left">uint32</td>
+<td align="left">使用变长编码</td>
+<td align="left">uint32</td>
+<td align="left">int</td>
+</tr>
+<tr>
+<td align="left">uint64</td>
+<td align="left">使用变长编码</td>
+<td align="left">uint64</td>
+<td align="left">long</td>
+</tr>
+<tr>
+<td align="left">sint32</td>
+<td align="left">使用变长编码，这些编码在负值时比int32高效的多</td>
+<td align="left">int32</td>
+<td align="left">int</td>
+</tr>
+<tr>
+<td align="left">sint64</td>
+<td align="left">使用变长编码，有符号的整型值。编码时比通常的int64高效。</td>
+<td align="left">int64</td>
+<td align="left">long</td>
+</tr>
+<tr>
+<td align="left">fixed32</td>
+<td align="left">总是4个字节，如果数值总是比总是比228大的话，这个类型会比uint32高效。</td>
+<td align="left">uint32</td>
+<td align="left">int</td>
+</tr>
+<tr>
+<td align="left">fixed64</td>
+<td align="left">总是8个字节，如果数值总是比总是比256大的话，这个类型会比uint64高效。</td>
+<td align="left">uint64</td>
+<td align="left">long</td>
+</tr>
+<tr>
+<td align="left">sfixed32</td>
+<td align="left">总是4个字节</td>
+<td align="left">int32</td>
+<td align="left">int</td>
+</tr>
+<tr>
+<td align="left">sfixed64</td>
+<td align="left">总是8个字节</td>
+<td align="left">int64</td>
+<td align="left">long</td>
+</tr>
+<tr>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">bool</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">一个字符串必须是UTF-8编码或者7-bit ASCII编码的文本。</td>
+<td align="left">string</td>
+<td align="left">String</td>
+</tr>
+<tr>
+<td align="left">bytes</td>
+<td align="left">可能包含任意顺序的字节数据。</td>
+<td align="left">string</td>
+<td align="left">ByteString</td>
+</tr>
+</tbody></table>
+<p><strong>枚举（enum）类型：</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs awk">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<span class="hljs-regexp">//</span>指定版本信息，不指定会报错<br><br>enum PhoneType <span class="hljs-regexp">//</span>枚举消息类型，使用enum关键词定义,一个电话类型的枚举类型<br>&#123;<br>    MOBILE = <span class="hljs-number">0</span>; <span class="hljs-regexp">//</span>proto3版本中，首成员必须为<span class="hljs-number">0</span>，成员不应有相同的值<br>    HOME = <span class="hljs-number">1</span>;<br>    WORK = <span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-regexp">//</span> 定义一个电话消息<br>message PhoneNumber<br>&#123;<br>    string number = <span class="hljs-number">1</span>; <span class="hljs-regexp">//</span> 电话号码字段<br>    PhoneType type = <span class="hljs-number">2</span>; <span class="hljs-regexp">//</span> 电话类型字段，电话类型使用PhoneType枚举类型<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>数组类型</strong>：通过在字段前面增加repeated关键词实现，标记当前字段是一个数组。</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-keyword">message </span><span class="hljs-title class_">Msg</span> &#123;<br>  <span class="hljs-comment">// 只要使用repeated标记类型定义，就表示数组类型。</span><br>  <span class="hljs-keyword">repeated</span> <span class="hljs-type">int32</span> arrays = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>map类型</strong>：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">map&lt;key_type, value_type&gt; map_field = N;<br></code></pre></td></tr></table></figure>
+
+<p><code>key_type</code>可以是任何整数或字符串类型（除浮点类型和字节之外的任何标量类型）。请注意，枚举不是有效的<code>key_type</code>。</p>
+<p><code>value_type</code> 可以是除另一个映射之外的任何类型。</p>
+<h2 id="消息嵌套"><a href="#消息嵌套" class="headerlink" title="消息嵌套"></a>消息嵌套</h2><p>我们在各种语言开发中类的定义是可以互相嵌套的，也可以使用其他类作为自己的成员属性类型。</p>
+<p>在protobuf中同样支持消息嵌套，可以在一个消息中嵌套另外一个消息，字段类型可以是另外一个消息类型。</p>
+<p>引用其他消息类型的用法：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-comment">// 定义Result消息</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Result</span> &#123;<br>  <span class="hljs-type">string</span> url = <span class="hljs-number">1</span>;<br>  <span class="hljs-type">string</span> title = <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">repeated</span> <span class="hljs-type">string</span> snippets = <span class="hljs-number">3</span>; <span class="hljs-comment">// 字符串数组类型</span><br>&#125;<br><br><span class="hljs-comment">// 定义SearchResponse消息</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">SearchResponse</span> &#123;<br>  <span class="hljs-comment">// 引用上面定义的Result消息类型，作为results字段的类型</span><br>  <span class="hljs-keyword">repeated</span> Result results = <span class="hljs-number">1</span>; <span class="hljs-comment">// repeated关键词标记，说明results字段是一个数组</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>也可以用import导入其他proto文件定义的消息。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://sakshichahal53.medium.com/json-vs-protocol-buffer-simplified-dbd6b69ca528">JSON vs Protocol Buffer Simplified</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tizi365.com/archives/367.html">ProtoBuf 入门教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://toutiao.io/posts/629xp0t/preview">在鹅厂用 C++ 开发是种什么样的体验？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25536695">谁能用通俗的语言解释一下什么是 RPC 框架？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.helloted.com/others/2020/04/26/rpc/">RPC简介</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/zh/topics/api/what-is-a-rest-api">RESTful API 是什么意思？</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/back-end/">back-end</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/30/aromantic/">
+                        <span class="hidden-mobile">What is Aromanticism?</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
