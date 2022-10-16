@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/front-end-interview-preparation/web-osi.png">
 <meta property="article:published_time" content="2022-05-14T11:27:20.000Z">
-<meta property="article:modified_time" content="2022-08-11T04:22:17.120Z">
+<meta property="article:modified_time" content="2022-10-16T16:03:05.060Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10k 字
+      11k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      85 分钟
+      92 分钟
     </span>
   
 
@@ -570,7 +570,46 @@
 <td>充当网关或代理的服务器，未及时从远端服务器获取请求</td>
 </tr>
 </tbody></table>
-<h2 id="HTTP-x2F-2-0"><a href="#HTTP-x2F-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h2><h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>TBC.</p>
+<h2 id="HTTP-x2F-2-0"><a href="#HTTP-x2F-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h2><h3 id="HTTP-x2F-1-0的痛点"><a href="#HTTP-x2F-1-0的痛点" class="headerlink" title="HTTP&#x2F;1.0的痛点"></a>HTTP&#x2F;1.0的痛点</h3><ol>
+<li>短连接：TCP消耗大</li>
+<li>队头阻塞问题：每个TCP同时只能处理一个HTTP请求，浏览器遵循FIFO原则，如果上一个没返回后续请求会被阻塞。</li>
+</ol>
+<h3 id="HTTP-x2F-1-1的优化"><a href="#HTTP-x2F-1-1的优化" class="headerlink" title="HTTP&#x2F;1.1的优化"></a>HTTP&#x2F;1.1的优化</h3><ol>
+<li>实现长连接：减少TCP连接消耗：<ul>
+<li>请求头配置：<code>Connection:keep-alive = true</code>。只要tcp连接不断开（默认2小时），一直可以进行http请求，但是一个tcp连接同一时间只支持一个http请求</li>
+</ul>
+</li>
+<li>线管化：允许多个HTTP请求批量地提交给服务器<ul>
+<li>这样做不能从根本上解决队头阻塞问题（虽然发送请求可以并行了，但响应还是串行）</li>
+</ul>
+</li>
+</ol>
+<h3 id="HTTP-x2F-2-0的优化"><a href="#HTTP-x2F-2-0的优化" class="headerlink" title="HTTP&#x2F;2.0的优化"></a>HTTP&#x2F;2.0的优化</h3><ol>
+<li>多路复用：一个tcp可以并发多个http请求<ul>
+<li>理论无上限，但是一般浏览器会有tcp并发数的限制，chrome为6个。</li>
+</ul>
+</li>
+<li>二进制分帧：在应用层(HTTP)和传输层(TCP)之间增加一个二进制分帧层，从而改进传输性能。<ul>
+<li>HTTP 1.1在应用层以纯文本的形式进行通信；而HTTP 2.0将所有的传输信息分割为更小的消息和帧，并对它们采用二进制格式编码。</li>
+<li>在二进制分帧层上，HTTP 1.1的首部信息会被封装到Headers帧，而Request Body则封装到Data帧。</li>
+</ul>
+</li>
+<li>头部压缩<ul>
+<li>原因：请求头字段很多都是重复的，比如Cookie，会浪费很多带宽。所以，对于相同的头部，只需发送一次即可。</li>
+<li>压缩机制：<ul>
+<li>客户端通过 gzip 和 compress 压缩头部然后再发送请求。</li>
+<li>客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，产生一个索引号，之后就不发送同样字段了，只需发送索引号。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>支持服务端推送<ul>
+<li>客户端发送一个请求，服务器根据客户端的请求，提前返回多个响应，这样客户端就不用发起后续请求。</li>
+<li>例子：如果一个请求是由主页发送的，服务器可能会响应主页内容、logo以及样式表，因为它知道客户端会用到这些。</li>
+</ul>
+</li>
+</ol>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>TBC.</p>
 <h2 id="跨域及解决方案"><a href="#跨域及解决方案" class="headerlink" title="跨域及解决方案"></a>跨域及解决方案</h2><h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="简单请求和非简单请求"><a href="#简单请求和非简单请求" class="headerlink" title="简单请求和非简单请求"></a>简单请求和非简单请求</h4><p>简单请求和非简单请求的概念是针对跨源域资源共享而言的。跨源域资源共享（CORS）机制允许 Web 应用服务器进行跨源访问控制，从而使跨源数据传输得以安全进行。</p>
 <p>其中，简单请求不会触发 CORS 预检请求。而非简单请求会触发预检请求，即该请求必须首先使用 OPTIONS 方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。</p>
 <p>若请求满足所有下述条件，则该请求可视为“简单请求”：</p>
