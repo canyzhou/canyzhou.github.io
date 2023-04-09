@@ -17,9 +17,9 @@
   <meta name="keywords" content="">
   
     <meta name="description" content="作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。 RPCRPC是什么RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="RPC与ProtoBuf入门">
-<meta property="og:url" content="http://example.com/2022/08/13/rpc-and-more/index.html">
+<meta property="og:url" content="http://example.com/drafts/rpc-and-more.html">
 <meta property="og:site_name" content="CanyZhou&#39;s Blog">
 <meta property="og:description" content="作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。 RPCRPC是什么RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方">
 <meta property="og:locale" content="en_US">
@@ -77,7 +77,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -183,40 +183,6 @@
             </span>
 
             
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-08-13 16:00" pubdate>
-        August 13, 2022 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      4.4k 字
-    </span>
-  
-
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      37 分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
           </div>
 
           
@@ -227,20 +193,17 @@
 
   <main>
     
-      
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">RPC与ProtoBuf入门</h1>
-            
-            <div class="markdown-body">
-              <p>作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。</p>
+<article class="page-content">
+  <p>作为一个前端er，工作中难免会遇到一些后台名词。要是理解了这些名词，开发和沟通效率就更高了。所以，这篇文章总结了一下我工作时接触到的后台相关的知识，包括RPC、CGI、RESTful API、ProtoBuf等概念。</p>
 <h1 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h1><h2 id="RPC是什么"><a href="#RPC是什么" class="headerlink" title="RPC是什么"></a>RPC是什么</h2><p>RPC（Remote Procedure Call，远程过程调用）：指的是两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
 <p>RPC的目的：能够像调用本地的函数一样去调远程函数。</p>
 <h2 id="完整的RPC框架"><a href="#完整的RPC框架" class="headerlink" title="完整的RPC框架"></a>完整的RPC框架</h2><p>在一个典型 RPC 的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件。</p>
@@ -475,73 +438,15 @@
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/zh/topics/api/what-is-a-rest-api">RESTful API 是什么意思？</a></li>
 </ol>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/back-end/">back-end</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/10/22/front-end-interview-preparation-6/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前端面试基础知识总结（六）：计算机网络</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/05/30/aromantic/">
-                        <span class="hidden-mobile">What is Aromanticism?</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
 
-            
-          </article>
+  
+</article>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
     
 
     
