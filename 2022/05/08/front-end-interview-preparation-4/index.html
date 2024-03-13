@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/js-banner.png">
 <meta property="article:published_time" content="2022-05-08T07:18:02.000Z">
-<meta property="article:modified_time" content="2023-03-15T12:32:22.535Z">
+<meta property="article:modified_time" content="2024-03-13T16:03:44.261Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -257,7 +257,7 @@
 <ul>
 <li>Map 的键可以是任意值，而 Object 的键只能是字符串或者 Symbol。</li>
 <li>Map 中的键值是有序的（FIFO 原则），而添加到对象中的键则不是。</li>
-<li>在性能上，Map在频繁增删键值对的场景下表现更好。</li>
+<li>在性能上，Map在频繁增删键值对的场景下表现更好。（原因是Map底层是哈希表，哈希表的核心思想是使用哈希函数将键转换成数组索引，然后在该索引处存储对应的值。）</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;key1&#x27;</span>, <span class="hljs-string">&#x27;value1&#x27;</span>]); <span class="hljs-comment">//default key-value</span><br>map.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;key2&#x27;</span>, <span class="hljs-string">&quot;value2&quot;</span>);<br>map.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;key2&#x27;</span>);  <span class="hljs-comment">// value2</span><br><span class="hljs-comment">// 将 Map 转 Array</span><br><span class="hljs-keyword">let</span> outArray = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(myMap);<br></code></pre></td></tr></table></figure>
 
@@ -266,7 +266,7 @@
 <ul>
 <li>+0 与 -0 在存储判断唯一性的时候是恒等的，所以重复；</li>
 <li>undefined 与 undefined 是恒等的，所以重复；</li>
-<li>NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个，不重复。</li>
+<li>NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个。</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// default value</span><br>set.<span class="hljs-title function_">add</span>(<span class="hljs-number">3</span>); <span class="hljs-comment">// set(3) &#123;1, 2, 3&#125;</span><br>set.<span class="hljs-title function_">add</span>(&#123;<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>&#125;); <span class="hljs-comment">// set(4) &#123;1, 2, 3, &#123;a: 1&#125;&#125;</span><br><span class="hljs-comment">// 用...操作符，将 Set 转 Array</span><br><span class="hljs-keyword">var</span> outArray = [...set];<br></code></pre></td></tr></table></figure>
 
@@ -299,14 +299,14 @@
 <ul>
 <li>静态属性：class 本身的属性，即直接定义在类内部的属性，不需要实例化。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>  <span class="hljs-keyword">static</span> a = <span class="hljs-number">2</span>; <span class="hljs-comment">// 新提案</span><br>&#125;<br><span class="hljs-title class_">Example</span>.<span class="hljs-property">a</span> = <span class="hljs-number">3</span>; <span class="hljs-comment">// 改变类的静态属性</span><br></code></pre></td></tr></table></figure></li>
 <li>公共属性：定义在类上的属性。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span>&#123;&#125;<br><span class="hljs-title class_">Example</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">a</span> = <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure></li>
-<li>实例属性：定义在实例对象上的属性。<br>ES6 中实例属性只能通过构造函数中的<code>this.xxx</code>来定义，ES7 提案中可以直接在类里面定义：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>    a = <span class="hljs-number">2</span>;<br>    <span class="hljs-title function_">constructor</span> () &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>实例属性：定义在实例对象上的属性。<br>ES6 中实例属性只能通过构造函数中的<code>this.xxx</code>来定义，ES7 提案中可以直接在类里面定义：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>    a = <span class="hljs-number">2</span>; <span class="hljs-comment">// ES7，直接在类中定义属性</span><br>    <span class="hljs-title function_">constructor</span> () &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="类的访问（JS和TS）"><a href="#类的访问（JS和TS）" class="headerlink" title="类的访问（JS和TS）"></a>类的访问（JS和TS）</h4><p>在 JavaScript 中，类属性在默认情况下是<strong>公有</strong>的，但可以使用增加哈希前缀<code>#</code>的方法来定义私有类字段，这一隐秘封装的类特性由 JS 自身强制执行。</p>
 <p>而在 TypeScript 中，可以使用三种访问修饰符（Access Modifiers），分别是 <code>public</code>、<code>private</code> 和 <code>protected</code>。</p>
 <ul>
 <li><code>public</code> 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 <code>public</code> 的</li>
 <li><code>private</code> 修饰的属性或方法是私有的，不能在声明它的类的外部访问</li>
-<li><code>protected</code> 修饰的属性或方法是受保护的，它和 <code>private</code> 类似，区别是它在子类中也是允许被访问的</li>
+<li><code>protected</code> 修饰的属性或方法是受保护的，它和 <code>private</code> 类似，区别是它在子类中是允许被访问的</li>
 </ul>
 <p>值得注意的是：访问修饰符仅在TS层有效，编译成JS后private修饰的字段并没有转化成原生私有字段。</p>
 <h4 id="decorator"><a href="#decorator" class="headerlink" title="decorator"></a>decorator</h4><p>decorator 是一个函数，用来修改类的行为，在代码编译时产生作用。</p>
