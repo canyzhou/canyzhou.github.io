@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/dom-banner.png">
 <meta property="article:published_time" content="2022-05-12T07:18:02.000Z">
-<meta property="article:modified_time" content="2022-05-28T16:09:41.863Z">
+<meta property="article:modified_time" content="2024-03-14T12:35:22.027Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.2k 字
+      4.7k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36 分钟
+      39 分钟
     </span>
   
 
@@ -306,6 +306,12 @@
 <li><code>preventDefault()</code>：阻止默认行为</li>
 <li><code>stopPropagation()</code>：阻止事件冒泡</li>
 </ul>
+<p>举个例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;outer&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;inner&quot;</span>&gt;</span>Click Me!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javaScript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;outer&#x27;</span>).<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;target:&#x27;</span>, event.<span class="hljs-property">target</span>.<span class="hljs-property">id</span>);<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;currentTarget:&#x27;</span>, event.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">id</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>所以，当你点击 inner 元素时，控制台将会打印：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">target: inner <span class="hljs-regexp">//</span> 实际触发事件的元素<br>currentTarget: outer <span class="hljs-regexp">//</span> 绑定事件的元素<br></code></pre></td></tr></table></figure>
+
 <h3 id="DOM-事件流"><a href="#DOM-事件流" class="headerlink" title="DOM 事件流"></a>DOM 事件流</h3><ol>
 <li>事件捕获阶段：自上而下向目标节点传播</li>
 <li>目标阶段</li>
@@ -386,6 +392,8 @@
 </tbody></table>
 <p>下图是更为精简的示意图：</p>
 <p><img src="/img/front-end-interview-preparation/bom-offsetTop2.jpg" srcset="/img/loading.gif" lazyload alt="示意图"></p>
+<p>最常用的是以下两个：<br>scrollTop：距离顶部的滚动距离<br>clientHeight：可视区域的高度</p>
+<p><img src="/img/front-end-interview-preparation/bom-scrolltop.png" srcset="/img/loading.gif" lazyload alt="示意图"></p>
 <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="document-ready-和-onload-的区别"><a href="#document-ready-和-onload-的区别" class="headerlink" title="document.ready 和 onload 的区别"></a>document.ready 和 onload 的区别</h3><ol>
 <li><code>document.ready</code>：<ul>
 <li>在 DOM 加载完成后就可以可以对 DOM 进行操作。</li>
