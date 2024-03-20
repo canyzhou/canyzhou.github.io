@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/front-end-interview-preparation/DSA-thumbnail.png">
 <meta property="article:published_time" content="2024-03-16T07:23:28.000Z">
-<meta property="article:modified_time" content="2024-03-19T13:59:01.121Z">
+<meta property="article:modified_time" content="2024-03-20T14:39:11.270Z">
 <meta property="article:author" content="Cany Zhou">
 <meta property="article:tag" content="front-end">
 <meta property="article:tag" content="interview">
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      276 分钟
+      278 分钟
     </span>
   
 
@@ -609,6 +609,9 @@
 
 <p><code>Object.assign(target, ...sources)</code>方法将一个或者多个源对象中所有可枚举的自有属性复制到目标对象，并返回修改后的目标对象。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> target = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> &#125;;<br><span class="hljs-keyword">const</span> source = &#123; <span class="hljs-attr">b</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">5</span> &#125;;<br><br><span class="hljs-keyword">const</span> returnedTarget = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(target, source);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(target); <span class="hljs-comment">// Expected output: Object &#123; a: 1, b: 4, c: 5 &#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(returnedTarget === target); <span class="hljs-comment">// Expected output: true</span><br></code></pre></td></tr></table></figure>
+
+<p><code>Object.defineProperty(obj, prop, descriptor)</code> 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> object1 = &#123;&#125;;<br><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(object1, <span class="hljs-string">&#x27;property1&#x27;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>,<br>  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,<br>&#125;);<br><br>object1.<span class="hljs-property">property1</span> = <span class="hljs-number">77</span>; <span class="hljs-comment">// Throws an error in strict mode</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object1.<span class="hljs-property">property1</span>); <span class="hljs-comment">// Expected output: 42</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="正则语法"><a href="#正则语法" class="headerlink" title="正则语法"></a>正则语法</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-syntax.html">正则表达式语法</a></p>
 <p>普通字符：</p>
